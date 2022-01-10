@@ -8,6 +8,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 const posts = {}
+const customers = {}
 
 const handleEvent = (type, data) => {
     if (type === 'PostCreated') {
@@ -21,6 +22,12 @@ const handleEvent = (type, data) => {
 
         const post = posts[postId];
         post.comments.push({ id, content, status });
+    }
+
+    if (type === 'CustomerCreated') {
+        const { id, nameCustomer, address, phone, username, password, idCard } = data;
+
+        customers[id] = { id, nameCustomer, address, phone, username, password, idCard };
     }
 
     if (type === 'Comment Updated') {
@@ -39,6 +46,10 @@ app.get('/posts', (req, res) => {
     res.send(posts);
 })
 
+app.get('/customers', (req, res) => {
+    res.send(customers);
+})
+
 app.post('/events', (req, res) => {
     const {type, data} = req.body;
 
@@ -50,7 +61,7 @@ app.post('/events', (req, res) => {
 app.listen(4002, async () => {
     console.log('Listening on 4002');
 
-    await axios.get('http://localhost:4005/events');
+    const res = await axios.get('http://localhost:4005/events');
 
     for (let event of res.data) {
         console.log('Processing event: ', event.type);
