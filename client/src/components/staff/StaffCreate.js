@@ -12,7 +12,7 @@ export default () => {
     const onSubmit = async (event) => {
         event.preventDefault();
 
-        await axios.post('http://localhost:4006/staffs', {
+        await axios.post('http://localhost:4008/staffs', {
             name,
             address,
             phone,

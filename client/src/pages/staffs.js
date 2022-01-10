@@ -12,7 +12,7 @@ const Staffs = props => {
         height: '90vh'
       }}>
       <div className="container">
-          <h1>Create Customer</h1>    
+          <h1>Create Staff</h1>    
           <StaffCreate />
           <hr/>
           <h1>List</h1>

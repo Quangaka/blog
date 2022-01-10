@@ -1,4 +1,6 @@
 import React from "react";
+import PostCreate from "../components/order/OrderCreate";
+import PostList from "../components/order/OrderList";
 
 const Orders = props => {
     return (
@@ -9,7 +11,13 @@ const Orders = props => {
           alignItems: 'center',
           height: '90vh'
         }}>
-        <h1 >O</h1>
+        <div className="container">
+            <h1>Create Order</h1>    
+            <PostCreate />
+            <hr/>
+            <h1>List</h1>
+            <PostList />
+        </div>
       </div>
     );
   };

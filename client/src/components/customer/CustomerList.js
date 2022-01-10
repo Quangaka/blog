@@ -20,8 +20,8 @@ export default () => {
         return(
             <div className="card" style={{width: '30%', marginBottom: '20px'}} key={post.id}>
                 <div className="card-body">
-                    <h3>Name: +{post.nameCustomer}</h3>
-                    <h3>Address: +{post.address}</h3>
+                    <h3>Name: {post.nameCustomer}</h3>
+                    <h3>Address: {post.address}</h3>
                 </div>
             </div>
         )

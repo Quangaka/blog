@@ -10,11 +10,11 @@ app.use(cors());
 
 const staffs = {};
 
-app.get('/services', (req, res) => {
+app.get('/staffs', (req, res) => {
     res.send(staffs)
 })
 
-app.post('/services', (req, res) => {
+app.post('/staffs', async (req, res) => {
   const id = randomBytes(4).toString('hex');
   const name = req.body.name;
   const address = req.body.address;
@@ -23,7 +23,7 @@ app.post('/services', (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
 
-  customers[id] = {
+  staffs[id] = {
     id,
     name,
     address,
@@ -37,7 +37,7 @@ app.post('/services', (req, res) => {
     type: 'StaffCreated',
     data: {
       id,
-      nameCustomer,
+      name,
       address,
       phone,
       username,
@@ -46,9 +46,15 @@ app.post('/services', (req, res) => {
       }
   });
 
-    res.status(200).send(staffs[id]);
+    res.status(201).send(staffs[id]);
 })
 
-app.listen(4007, () => {
+app.post('/events', (req, res) => {
+  console.log('Received Event', req.body.type);
+
+  res.send({});
+});
+
+app.listen(4008, () => {
     console.log('Listening on 4008');
 })

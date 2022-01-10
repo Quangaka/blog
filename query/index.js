@@ -10,6 +10,8 @@ app.use(cors());
 const posts = {}
 const customers = {}
 const staffs = {}
+const services = {}
+const orders = {}
 
 const handleEvent = (type, data) => {
     if (type === 'PostCreated') {
@@ -37,6 +39,18 @@ const handleEvent = (type, data) => {
         staffs[id] = { id, name, address, phone, username, password, idCard };
     }
 
+    if (type === 'OrderCreated') {
+        const { id, idAccount, totalMoney, date, idStaff, idService } = data;
+
+        orders[id] = { id, idAccount, totalMoney, date, idStaff, idService };
+    }
+
+    if (type === 'ServiceCreated') {
+        const { id, name, price, descripstion  } = data;
+
+        services[id] = { id, name, price, descripstion  };
+    }
+
     if (type === 'Comment Updated') {
         const { id, content, postId, status } = data;
 
@@ -58,7 +72,15 @@ app.get('/customers', (req, res) => {
 })
 
 app.get('/staffs', (req, res) => {
-    res.send(customers);
+    res.send(staffs);
+})
+
+app.get('/services', (req, res) => {
+    res.send(services);
+})
+
+app.get('/orders', (req, res) => {
+    res.send(orders);
 })
 
 app.post('/events', (req, res) => {

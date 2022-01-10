@@ -10,19 +10,37 @@ app.use(cors());
 
 const serivces = [];
 
-app.get('/services', (req, res) => {
+app.get('/service', (req, res) => {
     res.send(serivces)
 })
 
-app.post('/services', (req, res) => {
+app.post('/service', async (req, res) => {
     const id = randomBytes(4).toString('hex');
-    const name = req.body;
+    const name = req.body.name;
+    const price = req.body.price;
+    const descripstion = req.body.descripstion;
 
-    serivces.push({ id, name })
+    serivces[id] = { id, name, price, descripstion };
 
-    res.status(200).send(serivces[id]);
+    await axios.post('http://localhost:4005/events', {
+    type: 'ServiceCreated',
+    data: {
+      id,
+      name,
+      price,
+      descripstion
+      }
+  });
+
+    res.status(201).send(serivces[id]);
 })
 
-app.listen(4006, () => {
-    console.log('Listening on 4006');
+app.post('/events', (req, res) => {
+    console.log('Received Event', req.body.type);
+  
+    res.send({});
+  });
+
+app.listen(4009, () => {
+    console.log('Listening on 4009');
 })
