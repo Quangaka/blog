@@ -9,6 +9,7 @@ app.use(cors());
 
 const posts = {}
 const customers = {}
+const staffs = {}
 
 const handleEvent = (type, data) => {
     if (type === 'PostCreated') {
@@ -30,6 +31,12 @@ const handleEvent = (type, data) => {
         customers[id] = { id, nameCustomer, address, phone, username, password, idCard };
     }
 
+    if (type === 'StaffCreated') {
+        const { id, name, address, phone, username, password, idCard } = data;
+
+        staffs[id] = { id, name, address, phone, username, password, idCard };
+    }
+
     if (type === 'Comment Updated') {
         const { id, content, postId, status } = data;
 
@@ -47,6 +54,10 @@ app.get('/posts', (req, res) => {
 })
 
 app.get('/customers', (req, res) => {
+    res.send(customers);
+})
+
+app.get('/staffs', (req, res) => {
     res.send(customers);
 })
 

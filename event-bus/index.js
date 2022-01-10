@@ -23,6 +23,8 @@ app.post('/events', (req, res) => {
     axios.post('http://localhost:4003/events', event)
         .catch(error => {} );
     axios.post('http://localhost:4006/events', event)
+        .catch(error => {} );    
+    axios.post('http://localhost:4006/events', event)
         .catch(error => {} );
 
     res.send({ status: 'OK'});
